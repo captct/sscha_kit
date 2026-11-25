@@ -1,0 +1,7 @@
+python-sscha>=1.6.0
+CellConstructor>=1.6.0
+ase>=3.25.0
+spglib>=2.0.0
+PyYAML>=6.0
+numpy>=1.24.0
+matplotlib>=3.7.0
