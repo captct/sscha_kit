@@ -1,0 +1,41 @@
+# Generic cluster hardware profiles (PBS/Torque & SLURM)
+# For automatic detection on a new cluster, run:
+#   bash scripts/init_server.sh
+# Lookup priority: ./profiles.yaml -> ~/.config/sscha_kit/profiles.yaml -> <KIT_DIR>/profiles.yaml
+
+default:
+  scheduler: pbs
+  queue: batch
+  n_nodes: 1
+  n_cpu: 32
+  n_pool: 4
+  batch_size: 4
+  mpi_cmd: "mpirun -hostfile $PBS_NODEFILE -np NPROC"
+  env_setup: |
+    # source /opt/intel/oneapi/setvars.sh --force > /dev/null 2>&1
+    # module load qe/7.3
+    export PATH=/path/to/qe/bin:$PATH
+
+pbs_default:
+  scheduler: pbs
+  queue: batch
+  n_nodes: 1
+  n_cpu: 32
+  n_pool: 4
+  batch_size: 4
+  mpi_cmd: "mpirun -hostfile $PBS_NODEFILE -np NPROC"
+  env_setup: |
+    export PATH=/path/to/qe/bin:$PATH
+
+slurm_default:
+  scheduler: slurm
+  queue: cpu
+  n_nodes: 1
+  n_cpu: 64
+  n_pool: 4
+  batch_size: 4
+  mpi_cmd: "srun --mpi=pmi2 -n NPROC"
+  env_setup: |
+    module purge >/dev/null 2>&1 || true
+    # module load intel qe
+    export PATH=/path/to/qe/bin:$PATH
